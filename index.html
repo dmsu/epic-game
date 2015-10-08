@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>My React App</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-router/0.13.3/ReactRouter.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="text/jsx">
+    /** @jsx React.DOM */
+    'use strict';
+
+    var App = React.createClass({
+        render: function(){
+            return (
+              <div className="container wrapper">
+                <h1>Epic Game</h1>
+                <ReactRouter.RouteHandler/> 
+              </div>  
+            );
+        }
+    });
+
+    var Main = React.createClass({
+        render: function(){
+            return (
+              <div className="panel panel-default">
+                <div className="panel-heading">Main Menu</div>
+                <div className="panel-body">
+                  <ul className="nav">
+                    <li><ReactRouter.Link to="score" className="link-menu">Score</ReactRouter.Link></li>
+                    <li><ReactRouter.Link to="game" className="link-menu">Game</ReactRouter.Link></li>
+                    <li><ReactRouter.Link to="login" className="link-menu">Login</ReactRouter.Link></li>
+                  </ul> 
+                </div>  
+              </div>    
+            );
+        }
+    });
+
+    var Login = React.createClass({
+        render: function(){
+            return (
+              <div className="panel panel-default">
+                <div className="panel-heading">Login</div>
+                <form className="form-signin">
+                  <input type="login" className="form-control" placeholder="Login" required autofocus/>
+                  <input type="password" className="form-control" placeholder="Password" required/>
+                  <button className="btn btn-default btn-block" type="submit">Sign in</button>
+                </form>
+                <ReactRouter.Link to="app"><button className="btn btn-default btn-back">Back</button></ReactRouter.Link>
+              </div> 
+            );
+        }
+    });
+
+    var Score = React.createClass({
+        render: function(){
+            return (
+              <div className="panel panel-default">
+                <div className="panel-heading">Score Board</div>
+                <ReactRouter.Link to="app"><button className="btn btn-default btn-back">Back</button></ReactRouter.Link>
+              </div>  
+            );
+        }
+    });
+
+    var Game = React.createClass({
+        render: function(){
+            return (
+              <div className="panel panel-default">
+                <div className="panel-heading">Game</div>
+                <ReactRouter.Link to="app"><button className="btn btn-default btn-back">Back</button></ReactRouter.Link>
+              </div>  
+            );
+        }
+    });
+
+    var routes = (  
+      <ReactRouter.Route name="app" path="/" handler={App}>
+        <ReactRouter.Route name="login" path="login" handler={Login}/> 
+        <ReactRouter.Route name="score" path="score" handler={Score}/> 
+        <ReactRouter.Route name="game" path="game" handler={Game}/>     
+        <ReactRouter.DefaultRoute handler={Main}/> 
+      </ReactRouter.Route>
+    );
+
+    ReactRouter.run(routes, function (Handler, state) {
+        React.render(<Handler/>, document.getElementById("app"));
+    });
+    </script>
+  </body>
+</html>
